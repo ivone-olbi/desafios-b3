@@ -23,12 +23,13 @@ public class Navegador {
      */
     private WebDriver configure() {
 
-       final var navegador = NavegadoresSuportados.valueOf(getProperty("selenium.navegador"));
+       final var navegador = getProperty("selenium.navegador");
 
-       switch(navegador) {
-          case CHROME: chrome();
-          default: return new HtmlUnitDriver();
+       if(navegador != null) switch(NavegadoresSuportados.valueOf(navegador)) {
+          case CHROME: return chrome();
        }
+
+       return new HtmlUnitDriver(true);
 
     }
 
